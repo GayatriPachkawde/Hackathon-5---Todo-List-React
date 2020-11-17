@@ -1,130 +1,98 @@
 import React, { useState } from "react";
 import "./../styles/App.css";
-import Para from "./Para/Para";
-import UserInput from "./UserInput";
-import Buttons from "./Buttons/Buttons";
-import "./style.css";
-import EditArea from "./EditArea";
+import Task from "./Task/Task";
+import ListItem from "./List/ListItem";
+import Buttons from "./List/Buttons";
+import EditArea from "./List/EditArea";
 
 function App() {
-  const [state, setState] = useState({
+  const [listState, setlistState] = useState({
     listItem: [
-      {
-        UserInput: "",
-        id: "1",
-        showTextArea: true,
-        showEditandDlt: false,
-        showAddBtn: true,
-        showPara: true,
-        showTextAreaforEdit: false,
-        showSaveButton: true,
-        showListItem: true,
-        editEnabled: false,
-      },
+      { task: "", showListItem: false, showButtons: false, editEnabled: false },
     ],
+    inputField: "",
   });
 
-  function changeHandler(event, Index) {
-    const arr = [...state.listItem];
-    arr[Index].UserInput = event.target.value;
-    setState({ listItem: arr });
-  }
-
-  function addListItem(Index) {
-    if (state.listItem[Index].UserInput.length > 0) {
-      const newArr = [...state.listItem];
-      newArr[Index].showTextArea = false;
-      newArr[Index].showEditandDlt = true;
-      newArr[Index].showAddBtn = false;
-
+  function addHandler() {
+    const newArr = [...listState.listItem];
+    const length = newArr.length;
+    if (listState.listItem[length - 1].task.length > 0) {
+      newArr[length - 1].showListItem = true;
+      newArr[length - 1].showButtons = true;
       newArr.push({
-        UserInput: "",
-        id: Number(state.listItem[Index].id) + Number(1),
-        showTextArea: true,
-        showEditandDlt: false,
-        showEditandDlt: false,
-        showAddBtn: true,
-        showPara: true,
-        showTextAreaforEdit: false,
-        showSaveButton: true,
-        showListItem: true,
+        task: "",
+        showListItem: false,
+        showButtons: false,
         editEnabled: false,
       });
 
-      setState({ listItem: newArr });
+      setlistState({ listItem: newArr, inputField: "" });
     }
   }
 
-  function editHandler(Index) {
-    const newArr = [...state.listItem];
-    newArr[Index].showEditandDlt = false;
-    newArr[Index].showSaveButton = true;
-    newArr[Index].editEnabled = true;
-
-    setState({ listItem: newArr });
+  function inputChangeHandler(event) {
+    const newArr = [...listState.listItem];
+    const length = newArr.length;
+    newArr[length - 1].task = event.target.value;
+    setlistState({ listItem: newArr, inputField: event.target.value });
   }
 
   function deleteHandler(Index) {
-    const newArr = [...state.listItem];
+    const newArr = [...listState.listItem];
+    newArr.splice(Index, 1);
 
-    newArr[Index].showListItem = false;
+    setlistState({ listItem: newArr });
+  }
 
-    setState({ listItem: newArr });
+  function editHandler(Index) {
+    const newArr = [...listState.listItem];
+    newArr[Index].editEnabled = true;
+    newArr[Index].showButtons = false;
+    setlistState({ listItem: newArr });
+  }
+
+  function editChangeHandler(event, Index) {
+    const newArr = [...listState.listItem];
+    newArr[Index].task = event.target.value;
+    setlistState({ listItem: newArr });
   }
 
   function saveHandler(Index) {
-    if (state.listItem[Index].UserInput.length > 0) {
-      const newArr = [...state.listItem];
-      newArr[Index].showTextArea = false;
-      newArr[Index].showEditandDlt = true;
-      newArr[Index].showAddBtn = false;
+    if (listState.listItem[Index].task.length > 0) {
+      const newArr = [...listState.listItem];
+      newArr[Index].showButtons = true;
       newArr[Index].editEnabled = false;
-
-      setState({ listItem: newArr });
+      setlistState({ listItem: newArr });
     }
-  }
-  function changeHandler2(event, Index) {
-    const arr = [...state.listItem];
-    arr[Index].UserInput = event.target.value;
-    setState({ listItem: arr });
   }
 
   return (
     <div id="main">
-      {state.listItem.map((list, Index) => {
+      <Task
+        buttonClicked={addHandler}
+        change={inputChangeHandler}
+        value={listState.inputField}
+      />
+      {listState.listItem.map((list, Index) => {
         return (
-          <div className="list">
-            {state.listItem[Index].showListItem ? (
-              <div className="listItem">
-                {state.listItem[Index].showTextArea ? (
-                  <UserInput
-                    click={() => changeHandler(event, Index)}
-                    value={state.listItem[Index].UserInput}
-                  />
-                ) : null}
-                {state.listItem[Index].editEnabled ? (
-                  <EditArea
-                    changed={() => changeHandler2(event, Index)}
-                    value={state.listItem[Index].UserInput}
-                    saveClicked={() => saveHandler(Index)}
-                  />
-                ) : null}
+          <div className="list" key={Index}>
+            {listState.listItem[Index].showListItem ? (
+              <ListItem value={listState.listItem[Index].task} />
+            ) : null}
 
-                {state.listItem[Index].showPara ? (
-                  <Para text={state.listItem[Index].UserInput} />
-                ) : null}
-                {state.listItem[Index].showAddBtn ? (
-                  <button id="btn" onClick={() => addListItem(Index)}>
-                    Add
-                  </button>
-                ) : null}
-                {state.listItem[Index].showEditandDlt ? (
-                  <Buttons
-                    editClicked={() => editHandler(Index)}
-                    deleteClicked={() => deleteHandler(Index)}
-                  />
-                ) : null}
-              </div>
+            {listState.listItem[Index].showButtons ? (
+              <Buttons
+                deleteClicked={() => deleteHandler(Index)}
+                editClicked={() => editHandler(Index)}
+              />
+            ) : null}
+
+            {listState.listItem[Index].editEnabled ? (
+              <EditArea
+                change={() => editChangeHandler(event, Index)}
+                value={listState.listItem[Index].task}
+                saveClicked={() => saveHandler(Index)}
+              />
             ) : null}
           </div>
         );

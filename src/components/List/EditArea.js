@@ -1,13 +1,12 @@
 import React from "react";
-import Buttons from "./Buttons/Buttons";
 
 function EditArea(props) {
   return (
     <div>
       <textarea
         className="editTask"
+        onChange={props.change}
         value={props.value}
-        onChange={props.changed}
       />
       <button className="saveTask" onClick={props.saveClicked}>
         Save
