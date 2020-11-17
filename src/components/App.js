@@ -27,6 +27,7 @@ function App() {
       });
 
       setlistState({ listItem: newArr });
+      setInputstate({ inputField: "" });
     }
   }
 
