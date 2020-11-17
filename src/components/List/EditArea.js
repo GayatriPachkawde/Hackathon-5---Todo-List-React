@@ -2,7 +2,7 @@ import React from "react";
 
 function EditArea(props) {
   return (
-    <div>
+    <>
       <textarea
         className="editTask"
         onChange={props.change}
@@ -11,7 +11,7 @@ function EditArea(props) {
       <button className="saveTask" onClick={props.saveClicked}>
         Save
       </button>
-    </div>
+    </>
   );
 }
 

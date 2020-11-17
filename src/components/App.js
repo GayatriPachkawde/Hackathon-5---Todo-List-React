@@ -90,12 +90,22 @@ function App() {
             ) : null}
 
             {listState.listItem[Index].editEnabled ? (
-              <EditArea
-                change={() => editChangeHandler(event, Index)}
-                value={listState.listItem[Index].task}
-                saveClicked={() => saveHandler(Index)}
-              />
-            ) : null}
+              <>
+                <textarea
+                  className="editTask"
+                  onChange={() => editChangeHandler(event, Index)}
+                  value={listState.listItem[Index].task}
+                />
+                <button className="saveTask" onClick={() => saveHandler(Index)}>
+                  Save
+                </button>
+              </>
+            ) : // <EditArea
+            //   change={() => editChangeHandler(event, Index)}
+            //   value={listState.listItem[Index].task}
+            //   saveClicked={() => saveHandler(Index)}
+            // />
+            null}
           </div>
         );
       })}
