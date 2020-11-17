@@ -14,6 +14,7 @@ function App() {
   });
 
   function addHandler() {
+    console.log(listState.listItem);
     const newArr = [...listState.listItem];
     const length = newArr.length;
     if (listState.listItem[length - 1].task.length > 0) {
@@ -73,9 +74,10 @@ function App() {
         change={inputChangeHandler}
         value={listState.inputField}
       />
+
       {listState.listItem.map((list, Index) => {
         return (
-          <div className="list" key={Index}>
+          <div key={Index}>
             {listState.listItem[Index].showListItem ? (
               <ListItem value={listState.listItem[Index].task} />
             ) : null}

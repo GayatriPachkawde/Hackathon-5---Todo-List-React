@@ -1,11 +1,7 @@
 import React from "react";
 
 function ListItem(props) {
-  return (
-    <div>
-      <p>{props.value}</p>
-    </div>
-  );
+  return <p className="list">{props.value}</p>;
 }
 
 export default ListItem;
