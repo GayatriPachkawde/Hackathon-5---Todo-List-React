@@ -1,12 +1,13 @@
 import React from "react";
+import "./listStyle.css";
 
 function Buttons(props) {
   return (
     <div>
-      <button className="edit" onClick={props.editClicked}>
+      <button className="edit button" onClick={props.editClicked}>
         Edit
       </button>
-      <button className="delete" onClick={props.deleteClicked}>
+      <button className="delete button" onClick={props.deleteClicked}>
         Delete
       </button>
     </div>

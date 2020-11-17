@@ -6,15 +6,14 @@ import Buttons from "./List/Buttons";
 import EditArea from "./List/EditArea";
 
 function App() {
+  const [inputState, setInputstate] = useState({ inputField: "" });
   const [listState, setlistState] = useState({
     listItem: [
       { task: "", showListItem: false, showButtons: false, editEnabled: false },
     ],
-    inputField: "",
   });
 
   function addHandler() {
-    console.log(listState.listItem);
     const newArr = [...listState.listItem];
     const length = newArr.length;
     if (listState.listItem[length - 1].task.length > 0) {
@@ -27,7 +26,7 @@ function App() {
         editEnabled: false,
       });
 
-      setlistState({ listItem: newArr, inputField: "" });
+      setlistState({ listItem: newArr });
     }
   }
 
@@ -35,7 +34,8 @@ function App() {
     const newArr = [...listState.listItem];
     const length = newArr.length;
     newArr[length - 1].task = event.target.value;
-    setlistState({ listItem: newArr, inputField: event.target.value });
+    setlistState({ listItem: newArr });
+    setInputstate({ inputField: event.target.value });
   }
 
   function deleteHandler(Index) {
@@ -72,12 +72,12 @@ function App() {
       <Task
         buttonClicked={addHandler}
         change={inputChangeHandler}
-        value={listState.inputField}
+        value={inputState.inputField}
       />
 
       {listState.listItem.map((list, Index) => {
         return (
-          <div key={Index}>
+          <div class="block" key={Index}>
             {listState.listItem[Index].showListItem ? (
               <ListItem value={listState.listItem[Index].task} />
             ) : null}
@@ -90,22 +90,12 @@ function App() {
             ) : null}
 
             {listState.listItem[Index].editEnabled ? (
-              <>
-                <textarea
-                  className="editTask"
-                  onChange={() => editChangeHandler(event, Index)}
-                  value={listState.listItem[Index].task}
-                />
-                <button className="saveTask" onClick={() => saveHandler(Index)}>
-                  Save
-                </button>
-              </>
-            ) : // <EditArea
-            //   change={() => editChangeHandler(event, Index)}
-            //   value={listState.listItem[Index].task}
-            //   saveClicked={() => saveHandler(Index)}
-            // />
-            null}
+              <EditArea
+                change={() => editChangeHandler(event, Index)}
+                value={listState.listItem[Index].task}
+                saveClicked={() => saveHandler(Index)}
+              />
+            ) : null}
           </div>
         );
       })}

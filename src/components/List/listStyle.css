@@ -1,0 +1,11 @@
+.button {
+  transition-duration: 0.4s;
+  height: 30px;
+  width: 50px;
+  margin: 10px;
+}
+
+.button:hover {
+  background-color: grey; /* Green */
+  color: white;
+}

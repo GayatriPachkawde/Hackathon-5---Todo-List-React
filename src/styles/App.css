@@ -1,16 +1,32 @@
 h1 {
-    color: #27aedb;
-    text-align: center;
-    }
-    
-
-button{
-    color: #27aedb;
-    text-align: center;
-    justify-content: center;
-    align-items: center;
+  color: #27aedb;
+  text-align: center;
 }
 
-.bg-pink{
-	background-color:pink;
+button {
+  color: #27aedb;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.bg-pink {
+  background-color: pink;
+}
+
+body {
+  text-align: center;
+  background-color: skyblue;
+}
+
+.block {
+  height: 150px;
+  width: 40%;
+  border: 2px solid grey;
+  margin: auto;
+  margin-top: 10px;
+  box-shadow: 5px 10px 18px #888888;
+  margin-bottom: 15px;
+  overflow: auto;
+  background-color: gold;
 }
