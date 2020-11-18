@@ -53,7 +53,7 @@ function App() {
     setlistState({ listItem: newArr });
   }
 
-  function editChangeHandler(event, Index) {
+  function editChangeHandler(Index) {
     const newArr = [...listState.listItem];
     newArr[Index].task = event.target.value;
     setlistState({ listItem: newArr });
@@ -81,7 +81,7 @@ function App() {
           <div className="block" key={Index}>
             {listState.listItem[Index].editEnabled ? (
               <EditArea
-                change={() => editChangeHandler(event, Index)}
+                change={() => editChangeHandler(Index)}
                 value={listState.listItem[Index].task}
                 saveClicked={() => saveHandler(Index)}
               />
