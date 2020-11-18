@@ -6,6 +6,6 @@
 }
 
 .button:hover {
-  background-color: grey; /* Green */
-  color: white;
+  background-color: white; /* Green */
+  color: black;
 }

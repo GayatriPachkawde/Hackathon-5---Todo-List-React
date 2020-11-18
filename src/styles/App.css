@@ -4,7 +4,8 @@ h1 {
 }
 
 button {
-  color: #27aedb;
+  background-color: grey;
+  color: black;
   text-align: center;
   justify-content: center;
   align-items: center;
@@ -20,7 +21,7 @@ body {
 }
 
 .block {
-  height: 90px;
+  height: 100px;
   width: 40%;
   border: 2px solid grey;
   margin: auto;
