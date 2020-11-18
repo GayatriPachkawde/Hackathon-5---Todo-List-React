@@ -78,7 +78,14 @@ function App() {
 
       {listState.listItem.map((list, Index) => {
         return (
-          <div class="block" key={Index}>
+          <div className="block" key={Index}>
+            {listState.listItem[Index].editEnabled ? (
+              <EditArea
+                change={() => editChangeHandler(event, Index)}
+                value={listState.listItem[Index].task}
+                saveClicked={() => saveHandler(Index)}
+              />
+            ) : null}
             {listState.listItem[Index].showListItem ? (
               <ListItem value={listState.listItem[Index].task} />
             ) : null}
@@ -87,14 +94,6 @@ function App() {
               <Buttons
                 deleteClicked={() => deleteHandler(Index)}
                 editClicked={() => editHandler(Index)}
-              />
-            ) : null}
-
-            {listState.listItem[Index].editEnabled ? (
-              <EditArea
-                change={() => editChangeHandler(event, Index)}
-                value={listState.listItem[Index].task}
-                saveClicked={() => saveHandler(Index)}
               />
             ) : null}
           </div>
