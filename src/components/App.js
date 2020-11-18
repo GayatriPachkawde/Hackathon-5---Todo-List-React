@@ -76,21 +76,19 @@ function App() {
         value={inputState.inputField}
       />
 
-      {listState.listItem.map((list, Index) => {
+      {listState.listItem.map((listItem, Index) => {
         return (
           <div className="block" key={Index}>
-            {listState.listItem[Index].editEnabled ? (
+            {listItem.editEnabled ? (
               <EditArea
                 change={(event) => editChangeHandler(event, Index)}
-                value={listState.listItem[Index].task}
+                value={listItem.task}
                 saveClicked={() => saveHandler(Index)}
               />
             ) : null}
-            {listState.listItem[Index].showListItem ? (
-              <ListItem value={listState.listItem[Index].task} />
-            ) : null}
+            {listItem.showListItem ? <ListItem value={listItem.task} /> : null}
 
-            {listState.listItem[Index].showButtons ? (
+            {listItem.showButtons ? (
               <Buttons
                 deleteClicked={() => deleteHandler(Index)}
                 editClicked={() => editHandler(Index)}
